@@ -22,7 +22,7 @@ data:
         # existingClaim: ''
         nfsServer: "10.212.212.50"
         nfsPath: "/media"
-        readOnly: true
+        readOnly: false
       cache:
         enabled: true
         type: pvc
@@ -35,9 +35,6 @@ data:
       type: Recreate
 
     volumes:
-      - name: media
-        emptyDir: {}
-
       - name: movies
         persistentVolumeClaim:
           claimName: jellyfin-movies
@@ -51,9 +48,6 @@ data:
           claimName: jellyfin-music
 
     volumeMounts:
-      - name: media
-        mountPath: /media
-
       - name: movies
         mountPath: /media/movies
         readOnly: true
