@@ -34,15 +34,10 @@ data:
     deploymentStrategy:
       type: Recreate
 
-    securityContext:
-      capabilities:
-      #   drop:
-      #   - ALL
-      readOnlyRootFilesystem: false
-      # runAsNonRoot: true
-      # runAsUser: 1000
-
     volumes:
+      - name: media
+        emptyDir: {}
+
       - name: movies
         persistentVolumeClaim:
           claimName: jellyfin-movies
@@ -56,6 +51,9 @@ data:
           claimName: jellyfin-music
 
     volumeMounts:
+      - name: media
+        mountPath: /media
+
       - name: movies
         mountPath: /media/movies
         readOnly: true
