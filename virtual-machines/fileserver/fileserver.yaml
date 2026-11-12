@@ -210,7 +210,6 @@ spec:
       port: 22
       targetPort: 22
       protocol: TCP
-
     - name: nfs-tcp
       port: 2049
       targetPort: 2049
@@ -219,21 +218,11 @@ spec:
       port: 2049
       targetPort: 2049
       protocol: UDP
-
-    - name: rpc-tcp
-      port: 111
-      targetPort: 111
+    - name: smb
+      port: 445
+      targetPort: 445
       protocol: TCP
-    - name: rpc-udp
-      port: 111
-      targetPort: 111
-      protocol: UDP
-
-    - name: mountd-tcp
-      port: 20048
-      targetPort: 20048
-      protocol: TCP
-    - name: mountd-udp
-      port: 20048
-      targetPort: 20048
+    - name: smb
+      port: 445
+      targetPort: 445
       protocol: UDP
