@@ -9,5 +9,5 @@ data:
   values.yaml: |
     controller:
       replicas: 1
-      runOnMaster: true
+      runOnMaster: false
       runOnControlPlane: true
