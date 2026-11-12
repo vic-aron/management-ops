@@ -9,3 +9,4 @@ resources:
   - envoy-gateway
   - vpa
   - reloader
+  - cloudflare-ddns
