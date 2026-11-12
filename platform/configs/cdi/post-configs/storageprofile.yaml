@@ -13,7 +13,7 @@ spec:
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: StorageProfile
 metadata:
-  name: openebs-localpv-zfs-delete-128k
+  name: openebs-localpv-zfs-128k-delete
 spec:
   claimPropertySets:
     - accessModes:
