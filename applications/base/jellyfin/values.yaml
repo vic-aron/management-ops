@@ -34,7 +34,7 @@ data:
     deploymentStrategy:
       type: Recreate
 
-    securityContext: {}
+    securityContext:
       capabilities:
       #   drop:
       #   - ALL
