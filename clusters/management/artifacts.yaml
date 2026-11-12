@@ -61,3 +61,19 @@ spec:
       copy:
         - from: "@repo/virtual-machines/**"
           to: "@artifact/virtual-machines/"
+---
+apiVersion: source.extensions.fluxcd.io/v1beta1
+kind: ArtifactGenerator
+metadata:
+  name: applications
+  namespace: flux-system
+spec:
+  sources:
+    - alias: repo
+      kind: GitRepository
+      name: flux-system
+  artifacts:
+    - name: applciations
+      copy:
+        - from: "@repo/applications/**"
+          to: "@artifact/applications/"

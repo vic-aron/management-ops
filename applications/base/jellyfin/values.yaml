@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jellyfin-values
+  namespace: jellyfin
+  labels:
+    reconcile.fluxcd.io/watch: Enabled
+data:
+  values.yaml: |
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        storageClass: 'openebs-localpv-zfs-128k-delete'
+        # existingClaim: ''
+        readOnly: true
+      media:
+        enabled: true
+        type: nfs
+        # existingClaim: ''
+        nfsServer: "10.212.212.90"
+        nfsPath: "/media"
+        readOnly: true
+      cache:
+        enabled: true
+        type: pvc
+        accessMode: ReadWriteOnce
+        size: 10Gi
+        storageClass: 'openebs-localpv-zfs-128k-delete'
+        # existingClaim: ''

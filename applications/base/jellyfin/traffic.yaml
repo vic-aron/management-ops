@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyfin-lb
+  namespace: jellyfin
+  annotations:
+    metallb.io/loadBalancerIPs: 10.212.212.77
+spec:
+  type: LoadBalancer
+  selector:
+    app.kubernetes.io/name: jellyfin
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+spec:
+  secretName: jellyfin-tls
+  issuerRef:
+    name: platform-ca-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  dnsNames:
+    - jellyfin.home.arpa
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+spec:
+  parentRefs:
+    - name: public-gateway
+      namespace: envoy-gateway-system
+      sectionName: https
+  hostnames:
+    - jellyfin.home.arpa
+  rules:
+    - backendRefs:
+        - name: jellyfin
+          port: 80
