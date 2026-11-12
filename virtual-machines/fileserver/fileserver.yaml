@@ -218,11 +218,11 @@ spec:
       port: 2049
       targetPort: 2049
       protocol: UDP
-    - name: smb
+    - name: smb-tcp
       port: 445
       targetPort: 445
       protocol: TCP
-    - name: smb
+    - name: smb-udp
       port: 445
       targetPort: 445
       protocol: UDP
