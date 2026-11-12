@@ -13,17 +13,29 @@ for file in "$FLUX_SSH_KEY" "$SOPS_AGE_KEY"; do
 done
 
 # CNI
-#helm upgrade --install kube-ovn \
-#  oci://ghcr.io/kubeovn/charts/kube-ovn-v2 \
-#  --version v1.16.17 \
-#  --namespace kube-system \
-#  --create-namespace \
-#  --set ovsOvn.disableModulesManagement=true \
-#  --set ovsOvn.ovsDirectory="/var/lib/openvswitch" \
-#  --set ovsOvn.ovnDirectory="/var/lib/ovn" \
-#  --set ovsOvn.ovsIpsecKeysDirectory="/var/lib/ovs_ipsec_keys" \
-#  --set cni.mountToolingDirectory=false \
-#  --wait
+helm upgrade --install kube-ovn \
+  oci://ghcr.io/kubeovn/charts/kube-ovn-v2 \
+  --version v1.16.17 \
+  --namespace kube-system \
+  --create-namespace \
+  --set ovsOvn.disableModulesManagement=true \
+  --set ovsOvn.ovsDirectory="/var/lib/openvswitch" \
+  --set ovsOvn.ovnDirectory="/var/lib/ovn" \
+  --set ovsOvn.ovsIpsecKeysDirectory="/var/lib/ovs_ipsec_keys" \
+  --set cni.mountToolingDirectory=false \
+  --wait
+
+# Flux namespace
+kubectl create namespace flux-system \
+  --dry-run=client -o yaml |
+  kubectl apply -f -
+
+# Flux Age
+kubectl create secret generic sops-age \
+  --namespace flux-system \
+  --from-file=age.agekey="$SOPS_AGE_KEY" \
+  --dry-run=client -o yaml |
+  kubectl apply -f -
 
 # Flux bootstrap
 flux bootstrap git \
@@ -32,10 +44,3 @@ flux bootstrap git \
   --path=clusters/management \
   --components-extra image-reflector-controller,image-automation-controller,source-watcher \
   --private-key-file="$FLUX_SSH_KEY"
-
-# Flux Age
-kubectl create secret generic sops-age \
-  --namespace flux-system \
-  --from-file=age.agekey="$SOPS_AGE_KEY" \
-  --dry-run=client -o yaml |
-  kubectl apply -f -
