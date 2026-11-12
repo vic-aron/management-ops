@@ -17,7 +17,7 @@ data:
         # existingClaim: ''
         readOnly: true
       media:
-        enabled: true
+        enabled: false
         type: nfs
         # existingClaim: ''
         nfsServer: "10.212.212.90"
