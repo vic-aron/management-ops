@@ -73,7 +73,7 @@ spec:
       kind: GitRepository
       name: flux-system
   artifacts:
-    - name: applciations
+    - name: applications
       copy:
         - from: "@repo/applications/**"
           to: "@artifact/applications/"
