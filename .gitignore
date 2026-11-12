@@ -11,8 +11,8 @@ Session.vim
 *.backup
 
 # Talos state
-/rendered/
-/secrets/
+**/rendered/
+**/secrets/
 
 # Kubernetes secrets
 secret.*

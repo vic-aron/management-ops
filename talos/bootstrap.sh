@@ -5,7 +5,7 @@ FLUX_SSH_KEY="$HOME/.ssh/id_ed25519_flux"
 SOPS_AGE_KEY="$HOME/.config/sops/age/mgmt.txt"
 
 # Prerequisites
-for file in "$FLUX_SSH_KEY" "$FLUX_KNOWN_HOSTS" "$SOPS_AGE_KEY"; do
+for file in "$FLUX_SSH_KEY" "$SOPS_AGE_KEY"; do
   [[ -r "$file" ]] || {
     printf 'Missing or unreadable file: %s\n' "$file" >&2
     exit 1
@@ -13,17 +13,17 @@ for file in "$FLUX_SSH_KEY" "$FLUX_KNOWN_HOSTS" "$SOPS_AGE_KEY"; do
 done
 
 # CNI
-helm upgrade --install kube-ovn \
-  oci://ghcr.io/kubeovn/charts/kube-ovn-v2 \
-  --version v1.16.17 \
-  --namespace kube-system \
-  --create-namespace \
-  --set ovsOvn.disableModulesManagement=true \
-  --set ovsOvn.ovsDirectory="/var/lib/openvswitch" \
-  --set ovsOvn.ovnDirectory="/var/lib/ovn" \
-  --set ovsOvn.ovsIpsecKeysDirectory="/var/lib/ovs_ipsec_keys" \
-  --set cni.mountToolingDirectory=false \
-  --wait
+#helm upgrade --install kube-ovn \
+#  oci://ghcr.io/kubeovn/charts/kube-ovn-v2 \
+#  --version v1.16.17 \
+#  --namespace kube-system \
+#  --create-namespace \
+#  --set ovsOvn.disableModulesManagement=true \
+#  --set ovsOvn.ovsDirectory="/var/lib/openvswitch" \
+#  --set ovsOvn.ovnDirectory="/var/lib/ovn" \
+#  --set ovsOvn.ovsIpsecKeysDirectory="/var/lib/ovs_ipsec_keys" \
+#  --set cni.mountToolingDirectory=false \
+#  --wait
 
 # Flux bootstrap
 flux bootstrap git \
