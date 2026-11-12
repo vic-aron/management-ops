@@ -1,0 +1,64 @@
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: cp-0
+auto: "off"
+---
+apiVersion: v1alpha1
+kind: BondConfig
+name: bond.int
+up: true
+multicast: true
+links:
+  - enp6s0
+  - enp7s0
+addresses:
+  - address: 10.212.212.10/24
+routes:
+  - gateway: 10.212.212.254
+miimon: 100
+updelay: 200
+downdelay: 200
+numPeerNotif: 3
+bondMode: active-backup
+failOverMac: follow
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp6s0
+wakeOnLan:
+  - magic
+---
+apiVersion: v1alpha1
+kind: EthernetConfig
+name: enp7s0
+wakeOnLan:
+  - magic
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+nameservers:
+  - address: 10.212.212.254
+    protocol: Do53
+searchDomains:
+  domains:
+    - home.arpa
+hostDNS:
+  enabled: true
+  forwardKubeDNSToHost: true
+---
+apiVersion: v1alpha1
+kind: TimeSyncConfig
+ntp:
+  servers:
+    - 0.de.pool.ntp.org
+    - 1.de.pool.ntp.org
+    - 2.de.pool.ntp.org
+    - 3.de.pool.ntp.org
+  useNTS: false
+---
+apiVersion: v1alpha1
+kind: SysctlConfig
+params:
+  net.ipv4.ip_forward: "1"
+  vm.dirty_background_bytes: "4294967296"
+  vm.dirty_bytes: "8589934592"

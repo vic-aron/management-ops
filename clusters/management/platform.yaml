@@ -1,0 +1,117 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: platform-controller
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: ExternalArtifact
+    name: platform
+  path: "./platform/controller"
+  prune: true
+  wait: true
+  timeout: 5m
+  dependsOn:
+    - name: infrastructure-configs
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: platform-configs
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: ExternalArtifact
+    name: platform
+  path: "./platform/configs"
+  prune: true
+  wait: false
+  timeout: 5m
+  dependsOn:
+    - name: platform-controller
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  healthChecks:
+    # kubevirt
+    - kind: Deployment
+      name: virt-api
+      namespace: kubevirt
+    - kind: Deployment
+      name: virt-controller
+      namespace: kubevirt
+    - kind: Deployment
+      name: virt-exportproxy
+      namespace: kubevirt
+    - kind: Deployment
+      name: virt-template-apiserver
+      namespace: kubevirt
+    - kind: Deployment
+      name: virt-template-controller
+      namespace: kubevirt
+    - kind: DaemonSet
+      name: virt-handler
+      namespace: kubevirt
+    - kind: Deployment
+      name: virt-operator
+      namespace: kubevirt
+      # cdi
+    - kind: Deployment
+      name: cdi-apiserver
+      namespace: cdi
+    - kind: Deployment
+      name: cdi-deployment
+      namespace: cdi
+    - kind: Deployment
+      name: cdi-uploadproxy
+      namespace: cdi
+    - kind: Deployment
+      name: cdi-operator
+      namespace: cdi
+      # capi
+    - kind: Deployment
+      name: caaph-controller-manager
+      namespace: capi-operator-system
+    - kind: Deployment
+      name: capi-controller-manager
+      namespace: capi-operator-system
+    - kind: Deployment
+      name: capi-kubeadm-bootstrap-controller-manager
+      namespace: capi-operator-system
+    - kind: Deployment
+      name: capi-kubeadm-control-plane-controller-manager
+      namespace: capi-operator-system
+    - kind: Deployment
+      name: capk-controller-manager
+      namespace: capi-operator-system
+    - kind: Deployment
+      name: capi-operator-cluster-api-operator
+      namespace: capi-operator-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: platform-post-configs
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: ExternalArtifact
+    name: platform
+  path: "./platform/configs/cdi/post-configs"
+  prune: true
+  wait: true
+  timeout: 5m
+  dependsOn:
+    - name: platform-configs
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age

@@ -1,0 +1,19 @@
+# Vim artifacts
+Session.vim
+*.sw?
+*~
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Talos state
+/rendered/
+/secrets/
+
+# Kubernetes secrets
+secret.*
+!secret.enc.*

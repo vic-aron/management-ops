@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reloader-values
+  namespace: reloader
+  labels:
+    reconcile.fluxcd.io/watch: Enabled
+data:
+  values.yaml: |
+    reloader:
+      autoReloadAll: false
+      ignoreSecrets: false
+      ignoreConfigMaps: false
+      ignoreJobs: false
+      ignoreCronJobs: false
+      reloadOnCreate: false
+      reloadOnDelete: false
+      syncAfterRestart: false
+      reloadStrategy: default
+      ignoreNamespaces: ""
+      namespaceSelector: ""

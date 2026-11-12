@@ -1,0 +1,59 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cni
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: "./infrastructure/controller/kube-ovn-v2"
+  prune: false
+  wait: true
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infrastructure-controller
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: "./infrastructure/controller"
+  prune: true
+  wait: true
+  timeout: 5m
+  dependsOn:
+    - name: cni
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infrastructure-configs
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: "./infrastructure/configs"
+  prune: true
+  wait: true
+  timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+
