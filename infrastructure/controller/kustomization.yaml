@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - metrics-server
   - csi-driver-smb
+  - csi-driver-nfs
   - cert-manager
   - kubelet-csr-approver
   - metallb

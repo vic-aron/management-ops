@@ -1,0 +1,129 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: smb-creds
+  namespace: jellyfin
+type: Opaque
+stringData:
+  username: daniel
+  password: 09OBp22!
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jellyfin-movies
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  mountOptions:
+    - vers=3.1.1
+    - ro
+    - dir_mode=0555
+    - file_mode=0444
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: "//10.212.212.50/movies##"
+    readOnly: true
+    volumeAttributes:
+      source: "//10.212.212.50/movies"
+    nodeStageSecretRef:
+      name: smb-creds
+      namespace: jellyfin
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jellyfin-series
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  mountOptions:
+    - vers=3.1.1
+    - ro
+    - dir_mode=0555
+    - file_mode=0444
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: "//10.212.212.50/series##"
+    readOnly: true
+    volumeAttributes:
+      source: "//10.212.212.50/series"
+    nodeStageSecretRef:
+      name: smb-creds
+      namespace: jellyfin
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jellyfin-music
+spec:
+  capacity:
+    storage: 1Ti
+  accessModes:
+    - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  mountOptions:
+    - vers=3.1.1
+    - ro
+    - dir_mode=0555
+    - file_mode=0444
+  csi:
+    driver: smb.csi.k8s.io
+    volumeHandle: "//10.212.212.50/music##"
+    readOnly: true
+    volumeAttributes:
+      source: "//10.212.212.50/music"
+    nodeStageSecretRef:
+      name: smb-creds
+      namespace: jellyfin
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-movies
+  namespace: jellyfin
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: ""
+  volumeName: jellyfin-movies
+  resources:
+    requests:
+      storage: 1Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-series
+  namespace: jellyfin
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: ""
+  volumeName: jellyfin-series
+  resources:
+    requests:
+      storage: 1Ti
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-music
+  namespace: jellyfin
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: ""
+  volumeName: jellyfin-music
+  resources:
+    requests:
+      storage: 1Ti
