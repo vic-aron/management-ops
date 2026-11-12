@@ -31,6 +31,9 @@ data:
         storageClass: 'openebs-localpv-zfs-128k-delete'
         # existingClaim: ''
 
+    deploymentStrategy:
+      type: Recreate
+
     volumes:
       - name: movies
         persistentVolumeClaim:
