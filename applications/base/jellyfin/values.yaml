@@ -34,6 +34,14 @@ data:
     deploymentStrategy:
       type: Recreate
 
+    securityContext: {}
+      capabilities:
+      #   drop:
+      #   - ALL
+      readOnlyRootFilesystem: false
+      # runAsNonRoot: true
+      # runAsUser: 1000
+
     volumes:
       - name: movies
         persistentVolumeClaim:
