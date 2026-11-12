@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: csi-driver-nfs--values
+  name: csi-driver-nfs-values
   namespace: kube-system
   labels:
     reconcile.fluxcd.io/watch: Enabled

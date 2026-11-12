@@ -4,3 +4,4 @@ resources:
   - jellyfin.yaml
   - values.yaml
   - traffic.yaml
+  - secret.enc.yaml
