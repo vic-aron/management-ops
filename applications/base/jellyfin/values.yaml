@@ -20,7 +20,7 @@ data:
         enabled: false
         type: nfs
         # existingClaim: ''
-        nfsServer: "10.212.212.90"
+        nfsServer: "10.212.212.50"
         nfsPath: "/media"
         readOnly: true
       cache:
@@ -30,3 +30,29 @@ data:
         size: 10Gi
         storageClass: 'openebs-localpv-zfs-128k-delete'
         # existingClaim: ''
+
+    volumes:
+      - name: movies
+        persistentVolumeClaim:
+          claimName: jellyfin-movies
+
+      - name: series
+        persistentVolumeClaim:
+          claimName: jellyfin-series
+
+      - name: music
+        persistentVolumeClaim:
+          claimName: jellyfin-music
+
+    volumeMounts:
+      - name: movies
+        mountPath: /media/movies
+        readOnly: true
+
+      - name: series
+        mountPath: /media/series
+        readOnly: true
+
+      - name: music
+        mountPath: /media/music
+        readOnly: true

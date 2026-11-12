@@ -5,3 +5,4 @@ resources:
   - values.yaml
   - traffic.yaml
   - secret.enc.yaml
+  - pvc.yaml
