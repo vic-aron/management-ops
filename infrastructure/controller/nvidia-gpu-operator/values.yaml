@@ -9,14 +9,17 @@ data:
   values.yaml: |
     platform:
       openshift: false
-
     nfd:
       enabled: true
       nodefeaturerules: false
-
     psa:
       enabled: false
-
     cdi:
       enabled: true
       nriPluginEnabled: false
+    driver:
+      enabled: false
+    toolkit:
+      enabled: false
+    hostPaths:
+      driverInstallDir: "/usr/local"
