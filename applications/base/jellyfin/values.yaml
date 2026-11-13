@@ -59,3 +59,7 @@ data:
       - name: music
         mountPath: /media/music
         readOnly: true
+
+    resources:
+      limits:
+        nvidia.com/gpu: 1
