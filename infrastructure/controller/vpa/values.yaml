@@ -11,17 +11,20 @@ data:
       enabled: true
       replicas: 1
       podDisruptionBudget: {
-        maxUnavailable: 0
+        maxUnavailable: 1
+        minAvailable: 0
       }
     recommender:
       enabled: true
       replicas: 1
       podDisruptionBudget: {
-        maxUnavailable: 0
+        maxUnavailable: 1
+        minAvailable: 0
       }
     updater:
       enabled: true
       replicas: 1
       podDisruptionBudget: {
-        maxUnavailable: 0
+        maxUnavailable: 1
+        minAvailable: 0
       }
