@@ -10,7 +10,7 @@ spec:
     name: infrastructure
   path: "./infrastructure/controller/kube-ovn-v2"
   prune: false
-  wait: true
+  wait: false
   timeout: 5m
   decryption:
     provider: sops
