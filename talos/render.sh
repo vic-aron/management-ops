@@ -60,6 +60,8 @@ talosctl machineconfig patch \
   --patch @"$NODE_PATCH_DIR/cp-0/kubernetes.yaml" \
   --output "$RENDER_DIR/cp-0.yaml"
 
+#--patch @"$NODE_PATCH_DIR/cp-0/logging.yaml" \
+
 talosctl validate \
   --config "$RENDER_DIR/cp-0.yaml" \
   --mode metal

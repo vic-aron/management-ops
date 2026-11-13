@@ -78,3 +78,8 @@ name: nvidia_modeset
 apiVersion: v1alpha1
 kind: KernelModuleConfig
 name: nvidia_drm
+---
+apiVersion: v1alpha1
+kind: WatchdogTimerConfig
+device: /dev/watchdog0
+timeout: 5m0s

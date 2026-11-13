@@ -30,3 +30,26 @@ name: device-ownership
 content: |
   [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
+#---
+#apiVersion: v1alpha1
+#kind: CRICustomizationConfig
+#name: enable-metrics
+#content: |
+#  [plugins."io.containerd.server.v1.metrics"]
+#    address = "10.212.212.244:11234"
+#---
+#apiVersion: v1alpha1
+#kind: KmsgLogConfig
+#name: remote-log
+#url: tcp://10.212.212.244:5044/
+#---
+#apiVersion: v1alpha1
+#kind: EventSinkConfig
+#endpoint: 10.212.212.244:3247
+#---
+#apiVersion: v1alpha1
+#kind: StaticHostConfig
+#name: 10.212.212.244
+#hostnames:
+#    - collector
+#    - collector.home.arpa
