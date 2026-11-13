@@ -10,12 +10,18 @@ data:
     admissionController:
       enabled: true
       replicas: 1
-      podDisruptionBudget: null
+      podDisruptionBudget: {
+        maxUnavailable: 0
+      }
     recommender:
       enabled: true
       replicas: 1
-      podDisruptionBudget: null
+      podDisruptionBudget: {
+        maxUnavailable: 0
+      }
     updater:
       enabled: true
       replicas: 1
-      podDisruptionBudget: null
+      podDisruptionBudget: {
+        maxUnavailable: 0
+      }
