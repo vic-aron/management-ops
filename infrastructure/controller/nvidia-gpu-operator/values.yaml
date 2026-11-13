@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nvidia-gpu-operator-values
+  namespace: gpu-operator
+  labels:
+    reconcile.fluxcd.io/watch: Enabled
+data:
+  values.yaml: |
+    platform:
+      openshift: false
+
+    nfd:
+      enabled: true
+      nodefeaturerules: false
+
+    psa:
+      enabled: false
+
+    cdi:
+      enabled: true
+      nriPluginEnabled: false

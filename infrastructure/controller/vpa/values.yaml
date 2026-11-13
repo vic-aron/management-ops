@@ -10,9 +10,12 @@ data:
     admissionController:
       enabled: true
       replicas: 1
+      podDisruptionBudget: {}
     recommender:
       enabled: true
       replicas: 1
+      podDisruptionBudget: {}
     updater:
       enabled: true
       replicas: 1
+      podDisruptionBudget: {}

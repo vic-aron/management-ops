@@ -8,4 +8,6 @@ customization:
       - siderolabs/realtek-firmware
       - siderolabs/util-linux-tools
       - siderolabs/zfs
+      - siderolabs/nvidia-container-toolkit-lts
+      - siderolabs/nonfree-kmod-nvidia-lts
   bootloader: sd-boot
