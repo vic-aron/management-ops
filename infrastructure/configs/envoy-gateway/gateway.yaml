@@ -10,6 +10,8 @@ kind: Gateway
 metadata:
   name: public-gateway
   namespace: envoy-gateway-system
+  annotations:
+    external-dns.kubernetes.io/target: "jellyfin.shinoval.work"
 spec:
   gatewayClassName: envoy-gateway
   infrastructure:
