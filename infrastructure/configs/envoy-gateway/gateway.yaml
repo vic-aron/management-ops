@@ -11,9 +11,6 @@ metadata:
   name: public-gateway
   namespace: envoy-gateway-system
 spec:
-  addresses:
-    - type: IPAddress
-      value: 10.212.212.72
   gatewayClassName: envoy-gateway
   listeners:
     - name: https
@@ -32,6 +29,20 @@ spec:
           selector:
             matchLabels:
               platform.shinoval.work/gateway-access: "public"
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: public-gateway-proxy
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        type: LoadBalancer
+        annotations:
+          metallb.io/loadBalancerIPs: "10.212.212.72"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
