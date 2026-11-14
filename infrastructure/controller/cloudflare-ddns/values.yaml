@@ -9,10 +9,14 @@ data:
   values.yaml: |
     cloudflare:
       existingSecret: cloudflare-ddns
-    domains: shinoval.work
+    domains: shinoval.work,www.shinoval.work
     ip4Provider: cloudflare.trace
     ip6Provider: cloudflare.trace
     proxied: "true"
     ttl: 300
     recordComment: "managed by cloudflare-ddns"
     emoji: "false"
+    updateCron: "@every 5m"
+    updateOnStart: true
+    deleteOnStop: false
+    deleteOnFailure: false
