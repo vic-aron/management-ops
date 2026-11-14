@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: jellyfin
-  annotations:
+  labels:
     platform.shinoval.work/public-gateway-access: "true"
     platform.shinoval.work/private-gateway-access: "true"
 ---

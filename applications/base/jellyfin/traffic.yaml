@@ -47,7 +47,7 @@ spec:
       namespace: envoy-gateway-system
       sectionName: https
   hostnames:
-    - jellyfin.shinoval.work
+    - jellyfin.home.arpa
   rules:
     - backendRefs:
         - name: jellyfin
