@@ -12,6 +12,8 @@ data:
     policy: sync
     sources:
       - gateway-httproute
+    domainFilters:
+      - shinoval.work
     provider:
       name: cloudflare
     env:
