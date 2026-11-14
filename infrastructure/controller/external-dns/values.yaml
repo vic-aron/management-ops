@@ -11,7 +11,7 @@ data:
       enabled: true
     policy: sync
     sources:
-      - httproute
+      - gateway-httproute
     provider:
       name: cloudflare
     env:
