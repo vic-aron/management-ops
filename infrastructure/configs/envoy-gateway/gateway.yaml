@@ -33,7 +33,7 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              platform.shinoval.work/gateway-access: "public"
+              platform.shinoval.work/public-gateway-access: "true"
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
@@ -93,7 +93,7 @@ spec:
           from: Selector
           selector:
             matchLabels:
-              platform.shinoval.work/gateway-access: "private"
+              platform.shinoval.work/private-gateway-access: "true"
 ---
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy

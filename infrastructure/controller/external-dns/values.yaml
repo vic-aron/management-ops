@@ -10,6 +10,8 @@ data:
     serviceMonitor:
       enabled: true
     policy: sync
+    sources:
+      - httproute
     provider:
       name: cloudflare
     env:
