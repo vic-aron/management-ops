@@ -52,8 +52,9 @@ spec:
   prune: true
   wait: true
   timeout: 5m
+  dependsOn:
+    - name: infrastructure-controller
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-

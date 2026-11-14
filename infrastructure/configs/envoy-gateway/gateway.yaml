@@ -21,7 +21,7 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: public-tls
+            name: shinoval-wildcard-tls
             namespace: envoy-gateway-system
       allowedRoutes:
         namespaces:
