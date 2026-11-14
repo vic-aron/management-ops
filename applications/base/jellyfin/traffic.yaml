@@ -21,7 +21,7 @@ metadata:
   name: jellyfin-public
   namespace: jellyfin
   annotations:
-    external-dns.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.kubernetes.io/cloudflare-proxied: "false"
     external-dns.kubernetes.io/ttl: "300"
 spec:
   parentRefs:
