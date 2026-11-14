@@ -9,6 +9,7 @@ data:
   values.yaml: |
     serviceMonitor:
       enabled: true
+    policy: sync
     provider:
       name: cloudflare
       env:
