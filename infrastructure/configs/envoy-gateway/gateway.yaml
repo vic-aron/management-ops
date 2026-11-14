@@ -11,6 +11,9 @@ metadata:
   name: public-gateway
   namespace: envoy-gateway-system
 spec:
+  addresses:
+    - type: IPAddress
+      value: 10.212.212.72
   gatewayClassName: envoy-gateway
   listeners:
     - name: https
