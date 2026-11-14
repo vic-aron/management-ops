@@ -46,6 +46,8 @@ spec:
     kubernetes:
       envoyService:
         type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        allocateLoadBalancerNodePorts: false
         annotations:
           metallb.io/loadBalancerIPs: "10.212.212.72"
 ---
@@ -62,3 +64,63 @@ spec:
   dnsNames:
     - "*.shinoval.work"
     - "shinoval.work"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: private-gateway
+  namespace: envoy-gateway-system
+spec:
+  gatewayClassName: envoy-gateway
+  infrastructure:
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: private-gateway-proxy
+  listeners:
+    - name: https
+      hostname: "*.home.arpa"
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            name: home-wildcard-tls
+            namespace: envoy-gateway-system
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              platform.shinoval.work/gateway-access: "private"
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: private-gateway-proxy
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        allocateLoadBalancerNodePorts: false
+        annotations:
+          metallb.io/loadBalancerIPs: "10.212.212.73"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: home-wildcard
+  namespace: envoy-gateway-system
+spec:
+  secretName: home-wildcard-tls
+  issuerRef:
+    name: platform-ca-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - "*.home.arpa"
+    - "home.arpa"

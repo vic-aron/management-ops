@@ -15,35 +15,35 @@ spec:
       targetPort: 8096
       protocol: TCP
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
 metadata:
-  name: jellyfin
+  name: jellyfin-public
   namespace: jellyfin
+  annotations:
+    external-dns.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.kubernetes.io/ttl: "300"
 spec:
-  secretName: jellyfin-tls
-  issuerRef:
-    name: platform-ca-issuer
-    kind: ClusterIssuer
-    group: cert-manager.io
-  dnsNames:
-    - jellyfin.home.arpa
-  privateKey:
-    algorithm: ECDSA
-    size: 256
-  usages:
-    - digital signature
-    - key encipherment
-    - server auth
+  parentRefs:
+    - name: public-gateway
+      namespace: envoy-gateway-system
+      sectionName: https
+  hostnames:
+    - jellyfin.shinoval.work
+  rules:
+    - backendRefs:
+        - name: jellyfin
+          port: 8096
+          weight: 1
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: jellyfin
+  name: jellyfin-private
   namespace: jellyfin
 spec:
   parentRefs:
-    - name: public-gateway
+    - name: private-gateway
       namespace: envoy-gateway-system
       sectionName: https
   hostnames:

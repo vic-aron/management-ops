@@ -3,7 +3,8 @@ kind: Namespace
 metadata:
   name: jellyfin
   annotations:
-    platform.shinoval.work/gateway-access: "public"
+    platform.shinoval.work/public-gateway-access: "true"
+    platform.shinoval.work/private-gateway-access: "true"
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
