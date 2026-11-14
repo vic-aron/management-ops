@@ -14,14 +14,14 @@ spec:
   gatewayClassName: envoy-gateway
   listeners:
     - name: https
-      hostname: "*.home.arpa"
+      hostname: "*.shinoval.work"
       port: 443
       protocol: HTTPS
       tls:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            name: registry-tls
+            name: public-tls
             namespace: envoy-gateway-system
       allowedRoutes:
         namespaces:

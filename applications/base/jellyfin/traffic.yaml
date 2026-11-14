@@ -47,8 +47,9 @@ spec:
       namespace: envoy-gateway-system
       sectionName: https
   hostnames:
-    - jellyfin.home.arpa
+    - jellyfin.shinoval.work
   rules:
     - backendRefs:
         - name: jellyfin
-          port: 80
+          port: 8096
+          weight: 1

@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: jellyfin
+  annotations:
+    platform.shinoval.work/gateway-access: "public"
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
