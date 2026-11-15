@@ -14,7 +14,7 @@ spec:
   timeout: 5m
   dependsOn:
     - name: infrastructure-configs
-    - name: virtual-machines
+    - name: fileserver
   decryption:
     provider: sops
     secretRef:
