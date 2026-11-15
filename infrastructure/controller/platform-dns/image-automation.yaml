@@ -1,0 +1,49 @@
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: platform-dns
+  namespace: platform-dns
+spec:
+  image: docker.io/coredns/coredns
+  interval: 5m
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: platform-dns
+  namespace: platform-dns
+spec:
+  imageRepositoryRef:
+    name: platform-dns
+  policy:
+    semver:
+      range: ">=1.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: platform-dns
+  namespace: platform-dns
+spec:
+  interval: 30m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |-
+        Update container images
+
+        {{ .Changed.Summary }}
+    push:
+      branch: main
+  update:
+    path: ./infrastructure/controller/platform-dns
+    strategy: Setters

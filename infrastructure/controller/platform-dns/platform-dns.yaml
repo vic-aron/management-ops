@@ -134,7 +134,7 @@ spec:
 
       containers:
         - name: coredns
-          image: coredns/coredns:1.13.1
+          image: coredns/coredns:1.13.1 # {"$imagepolicy": "platform-dns:platform-dns"}
           imagePullPolicy: IfNotPresent
           args:
             - -conf

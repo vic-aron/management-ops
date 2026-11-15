@@ -4,6 +4,7 @@ resources:
   - metrics-server
   - platform-dns
   - amd-gpu-operator
+  - flux-system
   #- renovate
   - external-dns
   - nvidia-gpu-operator

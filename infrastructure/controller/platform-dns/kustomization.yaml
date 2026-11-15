@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - platform-dns.yaml
   - configmap.yaml
+  - image-automation.yaml
