@@ -9,7 +9,7 @@ data:
   values.yaml: |
     cloudflare:
       existingSecret: cloudflare-ddns
-    domains: shinoval.work,www.shinoval.work
+    domains: shinoval.work
     ip4Provider: cloudflare.trace
     ip6Provider: cloudflare.trace
     proxied: "true"
