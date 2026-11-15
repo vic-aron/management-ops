@@ -189,7 +189,7 @@ stringData:
         systemctl enable --now nfs-kernel-server.service
         systemctl enable --now smbd.service
 
-        reboot -r now
+        systemctl reboot
 
     write_files:
       - path: /etc/modules-load.d/zfs.conf
