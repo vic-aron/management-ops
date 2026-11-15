@@ -12,7 +12,7 @@ data:
     domains: shinoval.work
     ip4Provider: cloudflare.trace
     ip6Provider: cloudflare.trace
-    proxied: "true"
+    proxied: "false"
     ttl: 300
     recordComment: "managed by cloudflare-ddns"
     emoji: "false"
