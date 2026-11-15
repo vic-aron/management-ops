@@ -2,7 +2,7 @@ version: v1alpha1
 machine:
   logging:
     destinations:
-      - endpoint: "tcp://10.212.212.244:5044/"
+      - endpoint: "tcp://10.9.9.250:5044/"
         format: "json_lines"
         extraTags:
           cluster: management

@@ -10,4 +10,5 @@ customization:
       - siderolabs/zfs
       - siderolabs/nvidia-container-toolkit-lts
       - siderolabs/nonfree-kmod-nvidia-lts
+      - siderolabs/amdgpu
   bootloader: sd-boot

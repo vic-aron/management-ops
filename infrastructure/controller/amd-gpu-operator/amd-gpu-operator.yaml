@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rocm-gpu-operator
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: rocm-gpu-operator
+  namespace: rocm-gpu-operator
+spec:
+  interval: 24h
+  url: https://rocm.github.io/gpu-operator
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: amd-gpu-operator
+  namespace: rocm-gpu-operator
+spec:
+  interval: 15m
+  timeout: 5m
+  chart:
+    spec:
+      chart: rocm-operator-charts
+      version: "1.4.0"
+      sourceRef:
+        kind: HelmRepository
+        name: rocm-gpu-operator
+        namespace: rocm-gpu-operator
+  releaseName: amd-gpu-operator
+  install:
+    crds: Create
+    createNamespace: false
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 5m
+  upgrade:
+    crds: CreateReplace
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 5m
+  test:
+    enable: true
+  driftDetection:
+    mode: enabled
+  valuesFrom:
+    - kind: ConfigMap
+      name: amd-gpu-operator-values
+      valuesKey: values.yaml
+      optional: false

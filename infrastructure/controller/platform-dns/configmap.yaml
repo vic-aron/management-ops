@@ -23,6 +23,7 @@ data:
 
       forward . 10.212.212.254
       cache 30
+      prometheus :9153
       loop
       reload
       loadbalance

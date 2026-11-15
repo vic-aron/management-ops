@@ -51,7 +51,7 @@ spec:
         externalTrafficPolicy: Cluster
         allocateLoadBalancerNodePorts: false
         annotations:
-          metallb.io/loadBalancerIPs: "10.212.212.72"
+          metallb.io/loadBalancerIPs: "10.9.9.90"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -111,7 +111,7 @@ spec:
         externalTrafficPolicy: Cluster
         allocateLoadBalancerNodePorts: false
         annotations:
-          metallb.io/loadBalancerIPs: "10.212.212.73"
+          metallb.io/loadBalancerIPs: "10.9.9.91"
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

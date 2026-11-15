@@ -12,9 +12,9 @@ links:
   - enp6s0
   - enp7s0
 addresses:
-  - address: 10.212.212.10/24
+  - address: 10.9.9.10/24
 routes:
-  - gateway: 10.212.212.254
+  - gateway: 10.9.9.254
 miimon: 100
 updelay: 200
 downdelay: 200
@@ -37,7 +37,7 @@ wakeOnLan:
 apiVersion: v1alpha1
 kind: ResolverConfig
 nameservers:
-  - address: 10.212.212.254
+  - address: 10.9.9.254
     protocol: Do53
 searchDomains:
   domains:
@@ -82,4 +82,4 @@ name: nvidia_drm
 apiVersion: v1alpha1
 kind: WatchdogTimerConfig
 device: /dev/watchdog0
-timeout: 5m0s
+timeout: 2m0s

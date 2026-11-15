@@ -170,7 +170,7 @@ metadata:
   name: wireguard
   namespace: virtual-machines
   annotations:
-    metallb.io/loadBalancerIPs: 10.212.212.51
+    metallb.io/loadBalancerIPs: 10.9.9.51
 spec:
   type: LoadBalancer
   selector:

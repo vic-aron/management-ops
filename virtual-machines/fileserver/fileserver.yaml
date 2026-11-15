@@ -200,7 +200,7 @@ metadata:
   name: fileserver
   namespace: virtual-machines
   annotations:
-    metallb.io/loadBalancerIPs: 10.212.212.50
+    metallb.io/loadBalancerIPs: 10.9.9.50
 spec:
   type: LoadBalancer
   selector:

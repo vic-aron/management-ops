@@ -3,13 +3,88 @@ kind: Namespace
 metadata:
   name: platform-dns
 ---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: platform-dns
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: platform-dns
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: platform-dns
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+  egress:
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: platform-dns
+  namespace: platform-dns
+spec:
+  limits:
+    - type: Container
+      defaultRequest:
+        cpu: 50m
+        memory: 64Mi
+      default:
+        cpu: 500m
+        memory: 256Mi
+      min:
+        cpu: 10m
+        memory: 16Mi
+      max:
+        cpu: "1"
+        memory: 512Mi
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: platform-dns
+  namespace: platform-dns
+spec:
+  hard:
+    requests.cpu: "200m"
+    requests.memory: 256Mi
+    limits.cpu: "2"
+    limits.memory: 1Gi
+
+    pods: "5"
+    services: "3"
+    configmaps: "5"
+    secrets: "5"
+    persistentvolumeclaims: "0"
+---
 apiVersion: v1
 kind: Service
 metadata:
   name: platform-dns-lb
   namespace: platform-dns
   annotations:
-    metallb.io/loadBalancerIPs: 10.212.212.83
+    metallb.io/loadBalancerIPs: 10.9.9.52
 spec:
   type: LoadBalancer
   sessionAffinity: ClientIP
@@ -35,6 +110,8 @@ metadata:
   namespace: platform-dns
   labels:
     app.kubernetes.io/name: platform-dns
+  annotations:
+    configmap.reloader.stakater.com/reload: "platform-dns"
 spec:
   replicas: 2
   selector:

@@ -4,7 +4,7 @@ metadata:
   name: jellyfin-lb
   namespace: jellyfin
   annotations:
-    metallb.io/loadBalancerIPs: 10.212.212.77
+    metallb.io/loadBalancerIPs: 10.9.9.200
 spec:
   type: LoadBalancer
   selector:

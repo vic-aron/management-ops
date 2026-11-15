@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - metrics-server
   - platform-dns
+  - amd-gpu-operator
+  #- renovate
   - external-dns
   - nvidia-gpu-operator
   - csi-driver-smb
