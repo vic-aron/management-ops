@@ -123,20 +123,20 @@ stringData:
     apt:
       preserve_sources_list: false
       sources_list: |
-        deb $MIRROR $RELEASE main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE main contrib non-free-firmware
+        Types: deb deb-src
+        URIs: https://deb.debian.org/debian
+        Suites: trixie trixie-updates trixie-backports
+        Components: main contrib non-free-firmware
+        Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
-        deb $MIRROR $RELEASE-updates main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE-updates main contrib non-free-firmware
-
-        deb $MIRROR $RELEASE-backports main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE-backports main contrib non-free-firmware
-
-        deb $SECURITY $RELEASE-security main contrib non-free-firmware
-        deb-src $SECURITY $RELEASE-security main contrib non-free-firmware
+        Types: deb deb-src
+        URIs: https://deb.debian.org/debian-security
+        Suites: trixie-security
+        Components: main contrib non-free-firmware
+        Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
     # Packages
-    package_update: false
+    package_update: true
     package_upgrade: false
     package_reboot_if_required: false
 
