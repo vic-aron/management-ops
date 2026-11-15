@@ -33,3 +33,21 @@ spec:
     resources:
       requests:
         storage: 10Gi
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: ubuntu-2604-cloudimage
+  namespace: virtual-machines
+spec:
+  source:
+    http:
+      url: https://cloud-images.ubuntu.com/resolute/20261108/resolute-server-cloudimg-amd64.img
+  storage:
+    storageClassName: openebs-localpv-zfs-block-delete
+    accessModes:
+      - ReadWriteOnce
+    volumeMode: Block
+    resources:
+      requests:
+        storage: 10Gi

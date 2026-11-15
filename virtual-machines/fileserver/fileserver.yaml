@@ -11,7 +11,7 @@ spec:
       spec:
         source:
           pvc:
-            name: debian-13-cloudimage-generic
+            name: ubuntu-2604-cloudimage
             namespace: virtual-machines
         storage:
           storageClassName: openebs-localpv-zfs-block-delete
@@ -121,75 +121,47 @@ stringData:
 
     # APT
     apt:
-      preserve_sources_list: false
-      sources_list: |
-        Types: deb deb-src
-        URIs: https://deb.debian.org/debian
-        Suites: trixie trixie-updates trixie-backports
-        Components: main contrib non-free-firmware
-        Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+      preserve_sources_list: true
 
-        Types: deb deb-src
-        URIs: https://deb.debian.org/debian-security
-        Suites: trixie-security
-        Components: main contrib non-free-firmware
-        Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-    # Packages
     package_update: true
-    package_upgrade: false
+    package_upgrade: true
     package_reboot_if_required: false
 
-    runcmd:
-      - |
-        set -eu
-
-        export TERM=xterm
-        export DEBIAN_FRONTEND=noninteractive
-        export NEEDRESTART_MODE=a
-
-        apt-get update
-        apt-get upgrade -y
-
-        apt-get install -y --no-install-recommends \
-          curl \
-          wget \
-          dnsutils \
-          iproute2 \
-          traceroute \
-          qemu-guest-agent \
-          locales \
-          sudo \
-          vim \
-          git \
-          htop \
-          tmux \
-          rsync \
-          unzip \
-          bash-completion \
-          bat \
-          eza \
-          util-linux \
-          procps \
-          coreutils \
-          kmod \
-          pciutils \
-          linux-image-amd64 \
-          linux-headers-amd64 \
-          zfs-dkms \
-          zfs-zed \
-          zfsutils-linux \
-          nfs-kernel-server \
-          samba \
-          ca-certificates \
-          openssh-server \
-          nftables
-
-        systemctl enable qemu-guest-agent.service
-        systemctl enable nfs-kernel-server.service
-        systemctl enable smbd.service
-
-        systemctl reboot
+    # Packages
+    packages:
+      - curl
+      - wget
+      - dnsutils
+      - iproute2
+      - traceroute
+      - qemu-guest-agent
+      - locales
+      - sudo
+      - vim
+      - git
+      - htop
+      - tmux
+      - rsync
+      - unzip
+      - bash-completion
+      - bat
+      - eza
+      - util-linux
+      - procps
+      - coreutils
+      - kmod
+      - pciutils
+      - build-essential
+      - dkms
+      - linux-headers-generic
+      - zfs-dkms
+      - zfs-zed
+      - zfsutils-linux
+      - nfs-kernel-server
+      - samba
+      - ca-certificates
+      - openssh-server
+      - nftables
 
     write_files:
       - path: /etc/modules-load.d/zfs.conf
