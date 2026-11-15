@@ -121,7 +121,7 @@ stringData:
 
     # APT
     apt:
-      preserve_sources_list: true
+      preserve_sources_list: false
       sources_list: |
         Types: deb deb-src
         URIs: mirror+file:///etc/apt/mirrors/debian.list
