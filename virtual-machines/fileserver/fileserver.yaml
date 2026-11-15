@@ -223,7 +223,7 @@ stringData:
 apiVersion: v1
 kind: Service
 metadata:
-  name: fileserver
+  name: fileserver-lb
   namespace: virtual-machines
   annotations:
     metallb.io/loadBalancerIPs: 10.9.9.50
@@ -252,3 +252,19 @@ spec:
       port: 445
       targetPort: 445
       protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fileserver-np
+  namespace: virtual-machines
+spec:
+  type: NodePort
+  selector:
+    vm.kubevirt.io/name: fileserver
+  ports:
+    - name: ssh-sftp
+      port: 22
+      targetPort: 22
+      nodePort: 30222
+      protocol: TCP

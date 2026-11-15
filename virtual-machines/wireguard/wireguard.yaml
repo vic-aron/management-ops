@@ -155,7 +155,7 @@ stringData:
 apiVersion: v1
 kind: Service
 metadata:
-  name: wireguard
+  name: wireguard-lb
   namespace: virtual-machines
   annotations:
     metallb.io/loadBalancerIPs: 10.9.9.51
@@ -171,4 +171,20 @@ spec:
     - name: wireguard
       port: 51820
       targetPort: 51820
+      protocol: UDP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wireguard-np
+  namespace: virtual-machines
+spec:
+  type: NodePort
+  selector:
+    vm.kubevirt.io/name: wireguard
+  ports:
+    - name: wireguard
+      port: 51820
+      targetPort: 51820
+      nodePort: 30223
       protocol: UDP

@@ -20,6 +20,12 @@ labels:
   node-role.kubernetes.io/control-plane: ""
 ---
 apiVersion: v1alpha1
+kind: KubeProxyConfig
+config:
+  nodePortAddresses:
+    - 10.9.9.0/24
+---
+apiVersion: v1alpha1
 kind: KubeletConfig
 extraArgs:
   rotate-server-certificates: true
@@ -30,6 +36,7 @@ name: device-ownership
 content: |
   [plugins."io.containerd.cri.v1.runtime"]
     device_ownership_from_security_context = true
+
 #---
 #apiVersion: v1alpha1
 #kind: CRICustomizationConfig
