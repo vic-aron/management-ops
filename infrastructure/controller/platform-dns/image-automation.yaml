@@ -38,10 +38,6 @@ spec:
       author:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
-      messageTemplate: |-
-        Update container images
-
-        {{ .Changed.Summary }}
     push:
       branch: main
   update:
