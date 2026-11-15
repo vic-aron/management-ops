@@ -71,7 +71,6 @@ spec:
     requests.memory: 256Mi
     limits.cpu: "2"
     limits.memory: 1Gi
-
     pods: "5"
     services: "3"
     configmaps: "5"
@@ -131,15 +130,13 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-
       containers:
         - name: coredns
-          image: coredns/coredns:1.13.1 # {"$imagepolicy": "platform-dns:platform-dns"}
+          image: docker.io/coredns/coredns:1.15.0 # {"$imagepolicy": "platform-dns:platform-dns"}
           imagePullPolicy: IfNotPresent
           args:
             - -conf
             - /etc/coredns/Corefile
-
           ports:
             - name: dns-udp
               containerPort: 53
@@ -153,21 +150,18 @@ spec:
             - name: ready
               containerPort: 8181
               protocol: TCP
-
           livenessProbe:
             httpGet:
               path: /health
               port: health
             initialDelaySeconds: 5
             periodSeconds: 10
-
           readinessProbe:
             httpGet:
               path: /ready
               port: ready
             initialDelaySeconds: 5
             periodSeconds: 10
-
           resources:
             requests:
               cpu: 50m
@@ -175,7 +169,6 @@ spec:
             limits:
               cpu: 500m
               memory: 256Mi
-
           securityContext:
             runAsNonRoot: true
             runAsUser: 1000
@@ -187,13 +180,11 @@ spec:
                 - ALL
               add:
                 - NET_BIND_SERVICE
-
           volumeMounts:
             - name: config
               mountPath: /etc/coredns/Corefile
               subPath: Corefile
               readOnly: true
-
       volumes:
         - name: config
           configMap:
