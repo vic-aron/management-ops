@@ -123,14 +123,17 @@ stringData:
     apt:
       preserve_sources_list: false
       sources_list: |
-        deb $MIRROR $RELEASE trixie main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE trixie main contrib non-free-firmware
-        deb $MIRROR $RELEASE trixie-updates main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE trixie-updates main contrib non-free-firmware
-        deb $MIRROR $RELEASE trixie-backports main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE trixie-backports main contrib non-free-firmware
-        deb $MIRROR $RELEASE trixie-security main contrib non-free-firmware
-        deb-src $MIRROR $RELEASE trixie-security main contrib non-free-firmware
+        deb $MIRROR $RELEASE main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE main contrib non-free-firmware
+
+        deb $MIRROR $RELEASE-updates main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE-updates main contrib non-free-firmware
+
+        deb $MIRROR $RELEASE-backports main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE-backports main contrib non-free-firmware
+
+        deb $SECURITY $RELEASE-security main contrib non-free-firmware
+        deb-src $SECURITY $RELEASE-security main contrib non-free-firmware
 
     # Packages
     package_update: false
