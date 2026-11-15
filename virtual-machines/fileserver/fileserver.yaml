@@ -125,13 +125,13 @@ stringData:
 
     package_update: true
     package_upgrade: true
-    package_reboot_if_required: false
+    package_reboot_if_required: true
 
     # Packages
     packages:
       - curl
       - wget
-      - dnsutils
+      - bind9-dnsutils
       - iproute2
       - traceroute
       - qemu-guest-agent
@@ -142,6 +142,7 @@ stringData:
       - htop
       - tmux
       - rsync
+      - zip
       - unzip
       - bash-completion
       - bat
@@ -154,6 +155,7 @@ stringData:
       - build-essential
       - dkms
       - linux-headers-generic
+      - linux-image-generic
       - zfs-dkms
       - zfs-zed
       - zfsutils-linux
@@ -162,6 +164,7 @@ stringData:
       - ca-certificates
       - openssh-server
       - nftables
+      - snapd
 
     write_files:
       - path: /etc/modules-load.d/zfs.conf

@@ -18,10 +18,6 @@ data:
         readOnly: true
       media:
         enabled: false
-        type: nfs
-        # existingClaim: ''
-        nfsServer: "10.212.212.50"
-        nfsPath: "/media"
         readOnly: false
       cache:
         enabled: true
@@ -62,4 +58,5 @@ data:
 
     resources:
       limits:
-        nvidia.com/gpu: 1
+        amd.com/gpu: 1
+        # nvidia.com/gpu: 1

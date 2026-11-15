@@ -11,7 +11,7 @@ spec:
       spec:
         source:
           pvc:
-            name: debian-13-cloudimage-genericcloud
+            name: ubuntu-2604-cloudimage
             namespace: virtual-machines
         storage:
           storageClassName: openebs-localpv-zfs-block-delete
@@ -112,35 +112,23 @@ stringData:
     locale: en_US.UTF-8
     timezone: Europe/Berlin
 
-    # Debian repositories
-    runcmd:
-      - |
-        set -eu
+    # APT
+    apt:
+      preserve_sources_list: true
 
-        for source in /etc/apt/sources.list.d/*.sources; do
-          [ -f "$source" ] || continue
-
-          sed -i '/^Components:/ {
-            /contrib/! s/$/ contrib/
-            /non-free-firmware/! s/$/ non-free-firmware/
-          }' "$source"
-        done
-
-      - [systemctl, enable, --now, qemu-guest-agent.service]
+    package_update: true
+    package_upgrade: true
+    package_reboot_if_required: true
 
     # Packages
-    package_update: true
     packages:
-      # Networking
       - wireguard
       - wireguard-tools
       - curl
       - wget
-      - dnsutils
+      - bind9-dnsutils
       - iproute2
       - traceroute
-
-      # System utilities
       - qemu-guest-agent
       - locales
       - sudo
@@ -149,6 +137,7 @@ stringData:
       - htop
       - tmux
       - rsync
+      - zip
       - unzip
       - bash-completion
       - bat
@@ -158,11 +147,10 @@ stringData:
       - coreutils
       - kmod
       - pciutils
-
-      # Security
       - ca-certificates
       - openssh-server
       - nftables
+      - snapd
 ---
 apiVersion: v1
 kind: Service

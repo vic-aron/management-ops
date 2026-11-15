@@ -16,10 +16,10 @@ spec:
     - file_mode=0444
   csi:
     driver: smb.csi.k8s.io
-    volumeHandle: "//10.212.212.50/movies##"
+    volumeHandle: "//10.9.9.50/movies##"
     readOnly: true
     volumeAttributes:
-      source: "//10.212.212.50/movies"
+      source: "//10.9.9.50/movies"
     nodeStageSecretRef:
       name: smb-creds
       namespace: jellyfin
@@ -42,10 +42,10 @@ spec:
     - file_mode=0444
   csi:
     driver: smb.csi.k8s.io
-    volumeHandle: "//10.212.212.50/series##"
+    volumeHandle: "//10.9.9.50/series##"
     readOnly: true
     volumeAttributes:
-      source: "//10.212.212.50/series"
+      source: "//10.9.9.50/series"
     nodeStageSecretRef:
       name: smb-creds
       namespace: jellyfin
@@ -68,10 +68,10 @@ spec:
     - file_mode=0444
   csi:
     driver: smb.csi.k8s.io
-    volumeHandle: "//10.212.212.50/music##"
+    volumeHandle: "//10.9.9.50/music##"
     readOnly: true
     volumeAttributes:
-      source: "//10.212.212.50/music"
+      source: "//10.9.9.50/music"
     nodeStageSecretRef:
       name: smb-creds
       namespace: jellyfin
