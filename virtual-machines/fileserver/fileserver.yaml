@@ -121,7 +121,7 @@ stringData:
 
     # APT
     apt:
-      preserve_source_list: false
+      preserve_sources_list: true
       sources_list: |
         Types: deb deb-src
         URIs: mirror+file:///etc/apt/mirrors/debian.list
@@ -136,15 +136,20 @@ stringData:
         Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
 
     # Packages
-    package_update: true
-    package_upgrade: true
-    package_reboot_if_required: true
+    package_update: false
+    package_upgrade: false
+    package_reboot_if_required: false
 
     runcmd:
       - |
+        set -eu
+
         export TERM=xterm
         export DEBIAN_FRONTEND=noninteractive
         export NEEDRESTART_MODE=a
+
+        apt-get update
+        apt-get upgrade -y
 
         apt-get install -y --no-install-recommends \
           curl \
@@ -180,13 +185,11 @@ stringData:
           openssh-server \
           nftables
 
-        modprobe zfs
-
-        install -d -o root -g sambashare -m 2770 /srv/samba/share
-
         systemctl enable --now qemu-guest-agent.service
         systemctl enable --now nfs-kernel-server.service
         systemctl enable --now smbd.service
+
+        reboot -r now
 
     write_files:
       - path: /etc/modules-load.d/zfs.conf
@@ -209,7 +212,7 @@ stringData:
               smb ports = 445
               disable netbios = yes
 
-          [share]
+          [movies]
               path = /extank/media/movies
               browseable = yes
               read only = no
@@ -220,7 +223,7 @@ stringData:
               directory mask = 2770
               inherit permissions = yes
 
-          [share]
+          [series]
               path = /extank/media/series
               browseable = yes
               read only = no
@@ -231,7 +234,7 @@ stringData:
               directory mask = 2770
               inherit permissions = yes
 
-          [share]
+          [music]
               path = /extank/media/music
               browseable = yes
               read only = no
