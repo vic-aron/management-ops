@@ -123,17 +123,14 @@ stringData:
     apt:
       preserve_sources_list: false
       sources_list: |
-        Types: deb deb-src
-        URIs: mirror+file:///etc/apt/mirrors/debian.list
-        Suites: trixie trixie-updates trixie-backports
-        Components: main contrib non-free-firmware
-        Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
-
-        Types: deb deb-src
-        URIs: mirror+file:///etc/apt/mirrors/debian-security.list
-        Suites: trixie-security
-        Components: main contrib non-free-firmware
-        Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+        deb $MIRROR $RELEASE trixie main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE trixie main contrib non-free-firmware
+        deb $MIRROR $RELEASE trixie-updates main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE trixie-updates main contrib non-free-firmware
+        deb $MIRROR $RELEASE trixie-backports main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE trixie-backports main contrib non-free-firmware
+        deb $MIRROR $RELEASE trixie-security main contrib non-free-firmware
+        deb-src $MIRROR $RELEASE trixie-security main contrib non-free-firmware
 
     # Packages
     package_update: false
