@@ -185,9 +185,9 @@ stringData:
           openssh-server \
           nftables
 
-        systemctl enable --now qemu-guest-agent.service
-        systemctl enable --now nfs-kernel-server.service
-        systemctl enable --now smbd.service
+        systemctl enable qemu-guest-agent.service
+        systemctl enable nfs-kernel-server.service
+        systemctl enable smbd.service
 
         systemctl reboot
 
