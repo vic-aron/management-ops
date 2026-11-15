@@ -2,7 +2,7 @@
 set -euo pipefail
 umask 077
 
-TALOS_VERSION="v1.14.6"
+TALOS_VERSION="v1.14.5"
 KUBERNETES_VERSION="v1.37.1"
 CLUSTER_NAME="management"
 CLUSTER_ENDPOINT="https://10.9.9.10:6443"

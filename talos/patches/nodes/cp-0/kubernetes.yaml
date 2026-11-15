@@ -14,7 +14,7 @@ apiVersion: v1alpha1
 kind: KubeNodeConfig
 nodeIP:
   validSubnets:
-    - 10.212.212.0/24
+    - 10.9.9.0/24
 labels:
   kube-ovn/role: master
   node-role.kubernetes.io/control-plane: ""
