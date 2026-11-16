@@ -1,0 +1,62 @@
+---
+apiVersion: talos.dev/v1alpha1
+kind: ServiceAccount
+metadata:
+  name: talos-backup-secrets
+  namespace: kube-system
+spec:
+  roles:
+    - os:etcd:backup
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: talos-etcd-backup
+  namespace: kube-system
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: talosctl
+              image: ghcr.io/siderolabs/talosctl:v1.14.5
+              imagePullPolicy: IfNotPresent
+              command:
+                - talosctl
+              args:
+                - etcd
+                - snapshot
+                - /backup/latest.snapshot
+                - --nodes
+                - 10.212.212.10
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+                - name: talos-secrets
+                  mountPath: /var/run/secrets/talos.dev
+                  readOnly: true
+          volumes:
+            - name: backup
+              persistentVolumeClaim:
+                claimName: etcd-backup
+            - name: talos-secrets
+              secret:
+                secretName: talos-backup-secrets
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: etcd-backup
+  namespace: kube-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

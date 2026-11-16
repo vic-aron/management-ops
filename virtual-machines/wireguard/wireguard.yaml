@@ -1,3 +1,22 @@
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+  name: wireguard-os-volume
+  namespace: virtual-machines
+spec:
+  source:
+    pvc:
+      name: ubuntu-2604-cloudimage
+      namespace: virtual-machines
+  storage:
+    storageClassName: openebs-localpv-zfs-block-delete
+    accessModes:
+      - ReadWriteOnce
+    volumeMode: Block
+    resources:
+      requests:
+        storage: 10Gi
+---
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
@@ -5,22 +24,6 @@ metadata:
   namespace: virtual-machines
 spec:
   runStrategy: Always
-  dataVolumeTemplates:
-    - metadata:
-        name: wireguard-os-volume
-      spec:
-        source:
-          pvc:
-            name: ubuntu-2604-cloudimage
-            namespace: virtual-machines
-        storage:
-          storageClassName: openebs-localpv-zfs-block-delete
-          accessModes:
-            - ReadWriteOnce
-          volumeMode: Block
-          resources:
-            requests:
-              storage: 10Gi
   template:
     metadata:
       labels:

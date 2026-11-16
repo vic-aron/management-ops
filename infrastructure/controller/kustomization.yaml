@@ -5,6 +5,7 @@ resources:
   - platform-dns
   - amd-gpu-operator
   - flux-system
+  - talos-backup
   #- renovate
   - external-dns
   - nvidia-gpu-operator

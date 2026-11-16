@@ -7,4 +7,6 @@ metadata:
     reconcile.fluxcd.io/watch: Enabled
 data:
   values.yaml: |
-
+    cronjob:
+      schedule: '0 1 * * *'  # At 01:00 every day
+      timeZone: 'Europe/Berlin'
